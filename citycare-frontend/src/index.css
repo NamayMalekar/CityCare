@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+  }
+  /* Visible keyboard focus everywhere (quality floor) */
+  :focus-visible {
+    outline: 2px solid theme('colors.moss');
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5
+           text-sm font-semibold transition-all duration-150
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply btn bg-pine text-cream hover:bg-ink shadow-soft;
+  }
+  .btn-accent {
+    @apply btn bg-clay text-ink hover:brightness-95 shadow-soft;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-pine hover:bg-pine/5;
+  }
+  .field {
+    @apply w-full rounded-xl border border-mist bg-card px-4 py-2.5 text-sm text-ink
+           placeholder:text-sage/70 transition-shadow
+           focus:border-moss focus:ring-2 focus:ring-moss/20 focus:outline-none;
+  }
+  .label {
+    @apply block text-xs font-semibold uppercase tracking-wide text-sage mb-1.5;
+  }
+  .card {
+    @apply rounded-xl2 border border-mist bg-card shadow-soft;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Gentle fade for page mounts */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.4s ease both; }
